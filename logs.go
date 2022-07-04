@@ -21,11 +21,10 @@ func (c *Client) GetLogs(fromBlock, toBlock *int, address *string, topicsOrOps .
 		return nil, fmt.Errorf("cannot provide more than 4 topics")
 	}
 
-	param := M{
-		"fromBlock": fromBlock,
-		"toBlock":   toBlock,
-		"address":   address,
-	}
+	param := M{}
+	compose(param, "fromBlock", fromBlock)
+	compose(param, "toBlock", toBlock)
+	compose(param, "address", address)
 
 	// Not all the operators are supported (https://docs.etherscan.io/api-endpoints/logs).
 	// Only operator in between topics are supported.
