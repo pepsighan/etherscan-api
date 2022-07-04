@@ -30,13 +30,13 @@ func (c *Client) GetLogs(fromBlock, toBlock *int, address *string, topicsOrOps .
 	// Only operator in between topics are supported.
 	for index, topicOrOp := range topicsOrOps {
 		if index%2 == 0 {
-			param[fmt.Sprintf("topic%v", index)] = topicOrOp
+			param[fmt.Sprintf("topic%v", index/2)] = topicOrOp
 		} else {
 			if topicOrOp != "and" && topicOrOp != "or" {
 				return nil, fmt.Errorf("invalid operator")
 			}
 
-			param[fmt.Sprintf("topic%v_%v_opr", index-1, index)] = topicOrOp
+			param[fmt.Sprintf("topic%v_%v_opr", index/2, index/2+1)] = topicOrOp
 		}
 	}
 
